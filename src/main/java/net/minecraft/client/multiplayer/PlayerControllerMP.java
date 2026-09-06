@@ -671,6 +671,11 @@ public class PlayerControllerMP
         return this.isHittingBlock;
     }
 
+    public void setBlockHitDelay(int blockHitDelay)
+    {
+        this.blockHitDelay = blockHitDelay;
+    }
+
     public void pickItem(int index)
     {
         this.connection.sendPacket(new CPacketCustomPayload("MC|PickItem", (new PacketBuffer(Unpooled.buffer())).writeVarInt(index)));
