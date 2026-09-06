@@ -30,6 +30,11 @@ public class Timer
      */
     private float tickLength;
 
+    public void setTickLength(float tickLength)
+    {
+        this.tickLength = tickLength;
+    }
+
     public Timer(float tps)
     {
         this.tickLength = 1000.0F / tps;

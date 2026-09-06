@@ -1761,6 +1761,8 @@ public class EntityRenderer implements IResourceManagerReloadListener
             GlStateManager.enableAlpha();
         }
 
+        net.aether.Aether.getInstance().onRender3D(partialTicks);
+
         if (this.mc.debugRenderer.shouldRender())
         {
             boolean flag2 = GlStateManager.isFogEnabled();

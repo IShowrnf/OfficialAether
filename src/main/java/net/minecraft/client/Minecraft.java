@@ -639,6 +639,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo
         }
 
         this.renderGlobal.makeEntityOutlineShader();
+        net.aether.Aether.getInstance().startup();
     }
 
     /**
@@ -1136,6 +1137,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo
         try
         {
             LOGGER.info("Stopping!");
+            net.aether.Aether.getInstance().shutdown();
 
             try
             {
@@ -1526,6 +1528,16 @@ public class Minecraft implements IThreadListener, ISnooperInfo
         this.running = false;
     }
 
+    public Timer getTimer()
+    {
+        return this.timer;
+    }
+
+    public void setRightClickDelayTimer(int rightClickDelayTimer)
+    {
+        this.rightClickDelayTimer = rightClickDelayTimer;
+    }
+
     /**
      * Will set the focus to ingame if the Minecraft window is the active with focus. Also clears any GUI screen
      * currently displayed
@@ -1834,6 +1846,8 @@ public class Minecraft implements IThreadListener, ISnooperInfo
             this.ingameGUI.updateTick();
         }
 
+        net.aether.Aether.getInstance().onTick();
+
         this.mcProfiler.endSection();
         this.entityRenderer.getMouseOver(1.0F);
         this.tutorial.onMouseHover(this.world, this.objectMouseOver);
@@ -2063,6 +2077,11 @@ public class Minecraft implements IThreadListener, ISnooperInfo
             }
 
             boolean flag = Keyboard.getEventKeyState();
+
+            if (flag && this.currentScreen == null && !Keyboard.isRepeatEvent())
+            {
+                net.aether.Aether.getInstance().onKeyPress(i);
+            }
 
             if (flag)
             {
